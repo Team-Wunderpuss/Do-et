@@ -48,4 +48,8 @@ app.use((err, req, res, next) => {
 	res.status(errorObj.status).send(JSON.stringify(errorObj.message));
 });
 
+// API route
+
+app.use("/api", apiRouter);
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

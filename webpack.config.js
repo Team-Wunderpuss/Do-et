@@ -27,7 +27,6 @@ module.exports = (env) => {
     },
     devServer: {
       contentBase: path.join(__dirname, "src/public"),
-      // port: 8080,
       publicPath:  "http://localhost:3000/dist", // '/dist/',
       // hotOnly: true,
       proxy: {
