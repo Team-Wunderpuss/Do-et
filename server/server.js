@@ -2,7 +2,12 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+<<<<<<< HEAD
 const request = require('request');
+=======
+const userController = require('./controllers/userController');
+
+>>>>>>> main
 const app = express();
 
 const port = 3000;
