@@ -1,10 +1,13 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const userController = require('./controllers/userController');
+// const userController = require('./controllers/userController');
 
 const app = express();
 const port = 3000;
+
+//Import Custom Routers
+const apiRouter = require("./routes/api.js");
 
 /** 
  * handle parsing request body
@@ -40,5 +43,9 @@ app.use((err, req, res, next) => {
 
 	res.status(errorObj.status).send(JSON.stringify(errorObj.message));
 });
+
+// API route
+
+app.use("/api", apiRouter);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
