@@ -28,7 +28,7 @@ userController.validateUser = (req, res, next) => {
   // destructure username and password from
   const { username, password } = req.body;
   if (!username || !password) next('Username or password not correct') // --> DO WE WANt TO REDIRECT back to sign up if this fails?
-  // get usrname and hash from DB
+  // get username and hash from DB
   const query = `SELECT "hash" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
   db.query(query)
     .then((response) => {
