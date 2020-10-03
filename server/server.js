@@ -1,11 +1,15 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const request = require('request');
 const app = express();
+
 const port = 3000;
 
-/** 
+const apiRouter = require('./routes/api');
+
+/**
  * handle parsing request body
  */
 app.use(bodyParser.json());
@@ -20,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		res.sendFile(path.resolve(__dirname, '../src/public/index.html'));
 	});
 // }
+
+app.use('/api', apiRouter);
+
 
 // catch-all route handler for any requests to an unknown route
 app.all('*', (req, res) => {
