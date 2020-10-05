@@ -42,49 +42,61 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 		setPassword('');
 	};
 
-	// const onSignIn = (googleUser) => {
-	// 	const profile = googleUser.getBasicProfile();
-	// 	// GET FIRST NAME
-	// 	const firstName = profile.getGivenName();
-	// 	console.log('firstName: ', firstName)
-	// 	// GET LAST NAME
-	// 	const lastName = profile.getFamilyName();
-	// 	console.log('lastName: ', lastName)
-	// 	// GET IMAGE URL
-	// 	const imageUrl = profile.getImageUrl();
-	// 	console.log('imageURL: ', imageUrl)
-	// 	// GET EMAIL
-	// 	const email = profile.getEmail();
-	// 	console.log('email: ', email)
-	// 	// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
-	// 	const id_token = googleUser.getAuthResponse().id_token;
-	// 	fetch('/user/oAuth', {
-	// 		method: 'POST',
-	// 		body: JSON.stringify({
-	// 			username: email,
-	// 			password: null,
-	// 			firstname: firstName,
-	// 			imgUrl: imageUrl,
-	// 			oAuth: true,
-	// 			id_token: id_token
-	// 		}),
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 		}
-	// 	})
-	// 		.then()
-	// };
+	const onSignIn = (googleUser) => {
+		const profile = googleUser.getBasicProfile();
+		// GET FIRST NAME
+		const firstName = profile.getGivenName();
+		console.log('firstName: ', firstName)
+		// GET LAST NAME
+		const lastName = profile.getFamilyName();
+		console.log('lastName: ', lastName)
+		// GET IMAGE URL
+		const imageUrl = profile.getImageUrl();
+		console.log('imageURL: ', imageUrl)
+		// GET EMAIL
+		const email = profile.getEmail();
+		console.log('email: ', email)
+		// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
+		const id_token = googleUser.getAuthResponse().id_token;
+		fetch('/user/oAuth', {
+			method: 'POST',
+			body: JSON.stringify({
+				username: email,
+				password: null,
+				firstname: firstName,
+				imgUrl: imageUrl,
+				oAuth: true,
+				id_token: id_token
+			}),
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				const { username, id } = data.user;
+				setUserID(id);
+				console.log("LOGIN: ", id);
+				setUsername(username);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		setName('');
+		setPassword('');
+	};
 
-	// useEffect (() => {
-	// 	gapi.signin2.render('g-signin2', {
-	// 		// 'scope': 'https://www.googleapis.com/auth/plus.login',
-	// 		'width': 200,
-	// 		'height': 50,
-	// 		'longtitle': false,
-	// 		'theme': 'light',
-	// 		'onsuccess': onSignIn
-	// 	});
-	// });
+	useEffect (() => {
+		gapi.signin2.render('g-signin2', {
+			// 'scope': 'https://www.googleapis.com/auth/plus.login',
+			'width': 200,
+			'height': 50,
+			'longtitle': false,
+			'theme': 'light',
+			'onsuccess': onSignIn
+		});
+	});
 
 
 	return (
@@ -113,7 +125,7 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 						Login
 					</button>
 				</div>
-					{/* <div id="g-signin2"></div> */}
+					<div id="g-signin2"></div>
 			</div>
 		</div>
 	);

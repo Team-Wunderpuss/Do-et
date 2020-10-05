@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Entry.scss';
+
 
 export function Entry({ date, content, id, handleDelete }) {
 	const newDate = new Date(date).toDateString();
-	const [weather, handleWeather] = useState({});
+	const [weather, setHandleWeather] = useState({});
 
 	function handleWeather(city) {
 		fetch(`/api/${city}`)
@@ -14,7 +16,7 @@ export function Entry({ date, content, id, handleDelete }) {
 		<div className='entry'>
 			<p>{newDate}</p>
 			<div className='entry-item'>
-				<div>{content}</div>
+				<div className="place-entry">{content}</div>
 				{/* {
 					weather.city &&
 					<div>{weather data}</div>
