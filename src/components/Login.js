@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Header } from './Header';
 import styles from './Login.scss';
 
-export function Login({ setIsSignedUp, setUsername }) {
+export function Login({ setIsSignedUp, setUsername, setUserID }) {
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -29,7 +29,10 @@ export function Login({ setIsSignedUp, setUsername }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				const { username } = data;
+				console.log(data);
+				const { username, id } = data.user;
+				setUserID(id);
+				console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {
@@ -109,8 +112,8 @@ export function Login({ setIsSignedUp, setUsername }) {
 					<button id='login-btn' onClick={handleLogin}>
 						Login
 					</button>
-					<div id="g-signin2"></div>
 				</div>
+					<div id="g-signin2"></div>
 			</div>
 		</div>
 	);

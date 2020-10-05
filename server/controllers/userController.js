@@ -72,10 +72,7 @@ userController.validateUser = (req, res, next) => {
     db.query(query)
       .then((response) => {
         bcrypt.compare(password, response.rows[0].password, (err, result) => {
-          console.log(response.rows[0].password);
-          console.log(password);
-          if (result) next();
-          console.log('found user:', result);
+          if (result) return next();
           return next(err);
         });
       })
@@ -91,8 +88,8 @@ userController.getUser = (req, res, next) => {
   let values = [username];
   db.query(query, values)
   .then((response) => {
-    res.locals.username = response.rows[0];
-    console.log('res.locals.username: ', res.locals.username);
+    res.locals.user = response.rows[0];
+    console.log('res.locals.user: ', res.locals.user);
     return next();
   })
   .catch((err) => next(err));

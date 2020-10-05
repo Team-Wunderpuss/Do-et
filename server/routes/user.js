@@ -18,7 +18,7 @@ router.post('/signup', userController.createUser, (req, res) => {
 });
 
 router.post('/login', userController.getUser, userController.validateUser, (req, res) => {
-  // const users = await userController.createUser(req, res, next);
+  console.log(res.locals.user);
   res.status(200).json({ user: res.locals.user });
 });
 

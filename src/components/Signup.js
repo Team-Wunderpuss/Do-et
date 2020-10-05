@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Header } from './Header';
+import './Signup.scss';
 
 export function Signup({ setIsSignedUp, setUsername }) {
 	const [name, setName] = useState('');
@@ -49,8 +50,8 @@ export function Signup({ setIsSignedUp, setUsername }) {
 
 	return (
 		<div className='signup'>
-			<Header username={name}/>
-			<h1>Sign Up Here!</h1>
+			{/* <Header username={name}/> */}
+			<h1>Join DO-ET!</h1>
 			<div className='signup-container'>
 				<h3>Signup!</h3>
 				<div className='username-container'>
