@@ -8,7 +8,9 @@ userController.createUser = (req, res, next) => {
   // destructure user credentials and check if eith is undefined
   console.log('in create user');
   if (res.locals.oAuth) {
-    if (res.locals.existingUser) next ();
+    if (res.locals.existingUser) {
+      return next();
+    }
     const { username, firstname, lastname } = res.locals;
     const password = 'password123';
     const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${password}', '${firstname}', '${lastname}')`;
@@ -43,12 +45,13 @@ userController.validateUser = (req, res, next) => {
   // get username and hash from DB
   if (res.locals.oAuth) {
     const { username } = res.locals;
-    const query = `SELECT "password" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
+    const query = `SELECT * FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
     db.query(query)
       .then((response) => {
         if (response.rows[0]) {
-          console.log('in vlidate moving to next', response.rows[0]);
+          res.locals.user = response.rows[0];
           res.locals.existingUser = true;
+          console.log('in vlidate moving to next', response.rows[0]);
           return next();
         };
         // redirect to createUser
