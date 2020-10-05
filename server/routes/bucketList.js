@@ -10,16 +10,16 @@ router.get('/', bucketListController.getList, (req, res) => {
 });
 
 
-router.post('/additem', bucketListController.addItemToList, bucketListController.getList, (req, res) => {
+router.post('/additem', bucketListController.addItemToPlaces, bucketListController.placesIntoUIP, bucketListController.getList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
 });
 
-router.delete('/:id', bucketListController.deleteItem, bucketListController.getList, (req, res) => {
+router.delete('/:id', bucketListController.deleteItemFromUIP, bucketListController.deleteItemFromPlaces, bucketListController.getList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
-})
+});
 
-router.delete('/deleteall/:username', bucketListController.deleteWholeList, (req, res) => {
+router.delete('/deleteall/:username', bucketListController.deleteWholeUIP, bucketListController.deleteWholeList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
-})
+});
 
 module.exports = router;
