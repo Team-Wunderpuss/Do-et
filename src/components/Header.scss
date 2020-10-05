@@ -26,7 +26,7 @@ $celeste: #c4fff9;
 
       #home-btn {
       color: $warm-black;
-      background-color: 2px solid $light-green;
+      border-collapse: 2px solid $light-green;
 
         &:hover {
           color: $light-green;
@@ -36,7 +36,7 @@ $celeste: #c4fff9;
 
     #sidebar {
       color: $warm-black;
-      background-color: 2px solid $light-green;
+      border: 2px solid $light-green;
 
         &:hover {
           color: $light-green;
@@ -50,7 +50,7 @@ $celeste: #c4fff9;
 
         &:hover {
           color: $light-green;
-          background-color: $warm-black;
+          border: $warm-black;
         }
     }
   }
