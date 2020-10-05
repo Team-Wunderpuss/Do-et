@@ -1,7 +1,8 @@
 import React from 'react';
 // import './Header.scss';
 import App from '../App'
-export function Header(props) {
+export function Header({ username, handleLogout }) {
+
 	function handleHome() {
 		return (
 			<App />
@@ -17,8 +18,8 @@ export function Header(props) {
 
 			<h1>DO-ET</h1>
 			{
-				props.username > 1 &&
-				<h4>{props.username}'s Do-Et List!</h4>
+				username.length > 1 &&
+				<h4>{username}'s Do-Et List!</h4>
 			}
 			<button id='home-btn' onClick={handleHome} >
 				Home
@@ -27,8 +28,8 @@ export function Header(props) {
 				Menu
 			</button>
 			{
-				props.username > 1 &&
-				<button id='logout-btn' onClick={props.handleLogout}>
+				username.length > 1 &&
+				<button id='logout-btn' onClick={handleLogout}>
 					Logout
 				</button>
 			}

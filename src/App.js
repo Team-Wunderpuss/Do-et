@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Lobby } from './components/Lobby';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
-import { Header } from './components/Header';
 import './application.scss';
 
 function App() {
@@ -30,8 +29,5 @@ function App() {
 		</div>
 	);
 }
-
-
-
 
 export default (App);
