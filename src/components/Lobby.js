@@ -50,16 +50,19 @@ export function Lobby({ username, setUsername, userID }) {
 	};
 
 	const handleDelete = (id) => {
-		fetch(`http://localhost:3000/user/bucketList/${id}`, {
+		fetch(`/user/bucketList/${id}/${userID}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('Success:', data);
-				const newEntries = entries.filter((entry) => {
-					return entry._id !== data._id;
-				});
-				setEntries(newEntries);
+				// const newEntries = entries.filter((entry) => {
+				// 	return entry._id !== data._id;
+				// });
+				if (!data.lists) {
+					return setEntries([])
+				};
+				setEntries(data.lists);
 			})
 			.catch((error) => {
 				console.log('Error:', error);
@@ -89,6 +92,8 @@ export function Lobby({ username, setUsername, userID }) {
 		setUsername('');
 		setEntries([]);
 	};
+
+	console.log('ENTRY ', entries)
 
 	return (
 		<div className='bucket-list-container'>

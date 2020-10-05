@@ -13,7 +13,7 @@ export function Entry({ date, content, id, handleDelete }) {
 	}
 
 	return (
-		<div className='entry'>
+		<div className='entry' id={id}>
 			<p>{newDate}</p>
 			<div className='entry-item'>
 				<div className="place-entry">{content}</div>
