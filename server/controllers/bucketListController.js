@@ -85,3 +85,5 @@ bucketListController.deleteWholeList = (req, res, next) => {
 // INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
 // INNER JOIN users ON users.id=uip.fk_user_id
 // WHERE uip.fk_user_id=1;
+
+module.exports = bucketListController;
