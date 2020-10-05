@@ -8,17 +8,17 @@ const bucketListController = {};
 bucketListController.getList = (req, res, next) => {
   try {
     // Add variable for userID and pass into values
-    const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id, events.event
+    const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
                     FROM places 
                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
                     INNER JOIN users ON users.id=uip.fk_user_id
-                    INNER JOIN events ON users.id=events.fk_user_id
                     WHERE uip.fk_user_id=$1`;
     const values = [req.params.fk_user_id];
 
     db.query(query, values)
       .then((response) => {
         res.locals.lists = response.rows;
+        console.log('here is your list: ', res.locals.lists);
         return next();
       })
   } catch (err) {
@@ -68,8 +68,8 @@ bucketListController.placesIntoUIP = (req, res, next) => {
 
 bucketListController.deleteItemFromUIP = (req, res, next) => {
   // NEED TO ADD QUERY STRING
-  const query = `DELETE FROM users_in_places WHERE fk_city_id=$1`;
-  const values = [req.body.fk_city_id];
+  const query = `DELETE FROM users_in_places WHERE fk_city_id=$1 AND fk_user_id=$2`;
+  const values = [req.params.fk_city_id, req.params.fk_user_id];
   try {
     db.query(query, values)
       .then(() => { console.log('Item deleted') })
