@@ -15,9 +15,6 @@ router.post('/login', userController.validateUser, (req, res) => {
   res.status(200).json({ user: res.locals.user });
 });
 
-
-
-
  router.use('/bucketlist', bucketListRouter);
 
- 
+ module.exports = router;

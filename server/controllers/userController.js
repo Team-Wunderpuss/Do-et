@@ -28,12 +28,16 @@ userController.createUser = (req, res, next) => {
 
 userController.validateUser = (req, res, next) => {
   // destructure username and password from body
-  const { username, password } = req.body;
+  const { username, password, oAuth } = req.body;
   if (!username || !password) next('Username or password not correct') // --> DO WE WANt TO REDIRECT back to sign up if this fails?
   // get username and hash from DB
   const query = `SELECT "hash" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
   db.query(query)
     .then((response) => {
+      if (oAuth && response.rows[0]) next();
+      if (oAuth && !response.rows[0]) {
+        // redirect to createUser
+      }
       // Compare plain text user input with the hashed password
       const { hash } = response.rows[0];
       bcrypt.compare(password, hash, (err, result) => {
