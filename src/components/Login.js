@@ -112,8 +112,8 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 					<button id='login-btn' onClick={handleLogin}>
 						Login
 					</button>
-					<div id="g-signin2"></div>
 				</div>
+					<div id="g-signin2"></div>
 			</div>
 		</div>
 	);

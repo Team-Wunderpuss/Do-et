@@ -1,9 +1,26 @@
+$prussian-blue: #172a3a;
+$warm-black: #004346;
+$sapphire: #22577a;
+$steel-blue: #508991;
+$cadet-blue: #38a3a5;
+$mountain-meadow: #09bc8a;
+$medium-aqua: #57cc99;
+$light-green: #80ed99;
+$tea-green: #c7f9cc;
+$tiffany-blue: #07beb8;
+$medium-turquoise: #3dccc7;
+$blizzard-blue: #9ceaef;
+$celeste: #c4fff9;
+
 * {
 	margin: 0;
 	padding: 0;
-	font-family: 'Antic Didone', serif;
 }
 
 button:hover {
 	cursor: pointer;
+}
+
+body {
+	background-color: $tea-green;
 }

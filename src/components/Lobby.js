@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BucketList } from '../container/BucketList';
 import { Header } from './Header';
+import './Lobby.scss';
 
 export function Lobby({ username, setUsername, userID }) {
 	//check states
@@ -9,26 +10,20 @@ export function Lobby({ username, setUsername, userID }) {
 
 	//component did mount
 	useEffect(() => {
-		const body = {
-			fk_user_id: userID
-		}
 		console.log("LOBBY: ", userID);
-		fetch(`/user/bucketList/${username}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": 'application/json'
-			},
-			body: JSON.stringify(body)
-		})
+		fetch(`/user/bucketList/${userID}`)
 			.then((response) => response.json())
 			.then((data) => {
 				const { err } = data;
 				if (err) return;
-				const entries = [];
+				console.log(data);
+				// const entries = [];
 				for (const entry in data) {
-					entries.unshift(data[entry]);
+					console.log(entry);
+					console.log(data[entry]);
+					// entries.unshift(data[entry]);
+					setEntries(data[entry]);
 				}
-				setEntries(entries);
 			});
 	}, []);
 
@@ -72,7 +67,7 @@ export function Lobby({ username, setUsername, userID }) {
 			});
 	};
 	const handleDeleteAll = () => {
-		fetch(`http://localhost:3000/user/bucketList/deleteAll/${username}`, {
+		fetch(`http://localhost:3000/user/bucketList/deleteAll/${userID}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())
