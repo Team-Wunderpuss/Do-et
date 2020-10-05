@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Header } from './Header';
 import styles from './Login.scss';
 
-export function Login({ setIsSignedUp, setUsername }) {
+export function Login({ setIsSignedUp, setUsername, setUserID }) {
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -29,7 +29,10 @@ export function Login({ setIsSignedUp, setUsername }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				const { username } = data;
+				console.log(data);
+				const { username, id } = data.user;
+				setUserID(id);
+				console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {
@@ -54,7 +57,12 @@ export function Login({ setIsSignedUp, setUsername }) {
 		const email = profile.getEmail();
 		console.log('email: ', email)
 		// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
+<<<<<<< HEAD
 		fetch('/user/login', {
+=======
+		const id_token = googleUser.getAuthResponse().id_token;
+		fetch('/user/oAuth', {
+>>>>>>> e156b910b6c946078d3f1056bd04080eb9943be8
 			method: 'POST',
 			body: JSON.stringify({
 				username: email,
@@ -62,12 +70,32 @@ export function Login({ setIsSignedUp, setUsername }) {
 				firstname: firstName,
 				imgUrl: imageUrl,
 				oAuth: true,
+<<<<<<< HEAD
+=======
+				id_token: id_token
+>>>>>>> e156b910b6c946078d3f1056bd04080eb9943be8
 			}),
 			headers: {
 				'Content-Type': 'application/json',
 			}
 		})
+<<<<<<< HEAD
 			.then()
+=======
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				const { username, id } = data.user;
+				setUserID(id);
+				console.log("LOGIN: ", id);
+				setUsername(username);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		setName('');
+		setPassword('');
+>>>>>>> e156b910b6c946078d3f1056bd04080eb9943be8
 	};
 
 	useEffect (() => {
@@ -107,8 +135,12 @@ export function Login({ setIsSignedUp, setUsername }) {
 					<button id='login-btn' onClick={handleLogin}>
 						Login
 					</button>
+<<<<<<< HEAD
 					<div id="g-signin2"></div>
+=======
+>>>>>>> e156b910b6c946078d3f1056bd04080eb9943be8
 				</div>
+					<div id="g-signin2"></div>
 			</div>
 		</div>
 	);
