@@ -1,30 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+// import { hot } from 'react-hot-loader';
+import { Lobby } from './components/Lobby';
+import { Login } from './components/Login';
+import { Signup } from './components/Signup';
+import { Header } from './components/Header';
+// import '../scss/application.scss';
 
-export default class App extends Component {
-state = {
-  data: null
-};
+function App() {
+	const [isSignedUp, setIsSignedUp] = useState(false);
+	const [username, setUsername] = useState('');
 
-componentDidMount() {
-  this.callBackEndAPI()
-    .then(res => this.setState({data: res.express}))
-    .catch(err => console.log(err));
+	//conditions to render components
+	const showSignUpPage = isSignedUp && username.length < 1;
+	const showLoginPage = !isSignedUp && username.length < 1;
+	const showLobby = !isSignedUp && username.length > 1;
+
+	return (
+		<div className='app'>
+			{showLobby && (
+				<Lobby username={username} setUsername={setUsername} />
+			)}
+			{showSignUpPage && (
+				<Signup setIsSignedUp={setIsSignedUp} setUsername={setUsername} />
+			)}
+			{showLoginPage && (
+				<Login setIsSignedUp={setIsSignedUp} setUsername={setUsername} />
+			)}
+		</div>
+	);
 }
 
-callBackEndAPI = async () => {
-  const response = await fetch('/');
-  const body = await response.json();
-  if(response.status !== 200) {
-    throw Error(body.message)
-  }
-  return body;
-}
-  render() {
-    return (
-      <div>
-        <h1>Hello worlddddd</h1>
-    <p>{this.state.data}</p>
-      </div>
-    )
-  }
-}
+
+
+
+export default (App);

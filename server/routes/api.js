@@ -37,7 +37,12 @@ router.get('/', (req, res) => {
 // create/validate new user
 router.post('/', userController.createUser, (req, res) => {
   // const users = await userController.createUser(req, res, next);
-  res.status(200).json({ user: res.locals.user });
+  res.status(200).json({ username: res.locals.user });
+});
+
+router.post('/verify', userController.validateUser, (req, res) => {
+  // const users = await userController.createUser(req, res, next);
+  res.status(200).json('User Validated');
 });
 //   async (req, res, next) => {
 //     try {

@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const db = require('../db/db')
 // REQUIRE DB HERE
 
 const userController = {};
@@ -6,6 +7,7 @@ const userController = {};
 userController.createUser = (req, res, next) => {
   // destructure user credentials and check if eith is undefined
   const { username, password } = req.body;
+  console.log('req.body: ', req.body);
   if (!username || !password) next('Username or password is undefined in userController.createUser');
   //save user in locals for use in middleware chain
   res.locals.user = username;
@@ -15,7 +17,7 @@ userController.createUser = (req, res, next) => {
   bcrypt.hash(password, saltRounds, (err, hash) => {
     // query string NEED TO PARAMATIZE THE QUERY STRING
     // CHECK ON NAME OF TABLE FROM STORMY
-    const query = `INSERT INTO "users" ("username", "password", "firstName", "lastName") VALUES ('${username}', '${hash}', 'test', 'dummy')`;
+    const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${hash}', 'test', 'dummy')`;
     // send to database UPDATE THE NAME OF THE DB
     db.query(query)
       .then(() => console.log('User successfully saved in DB'))

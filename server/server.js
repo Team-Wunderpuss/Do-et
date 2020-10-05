@@ -50,6 +50,4 @@ app.use((err, req, res, next) => {
 
 // API route
 
-app.use("/api", apiRouter);
-
 app.listen(port, () => console.log(`Listening on port ${port}`));
