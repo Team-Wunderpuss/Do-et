@@ -4,7 +4,7 @@ import { Lobby } from './components/Lobby';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Header } from './components/Header';
-// import '../scss/application.scss';
+import './application.scss';
 
 function App() {
 	const [isSignedUp, setIsSignedUp] = useState(false);
