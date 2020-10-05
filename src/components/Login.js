@@ -72,7 +72,19 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 				'Content-Type': 'application/json',
 			}
 		})
-			.then()
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				const { username, id } = data.user;
+				setUserID(id);
+				console.log("LOGIN: ", id);
+				setUsername(username);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		setName('');
+		setPassword('');
 	};
 
 	useEffect (() => {
