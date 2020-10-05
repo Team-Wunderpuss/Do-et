@@ -7,7 +7,6 @@ export function Lobby({ username, setUsername, userID }) {
 	//check states
 	const [entry, setEntry] = useState('');
 	const [entries, setEntries] = useState([]);
-
 	//component did mount
 	useEffect(() => {
 		console.log("LOBBY: ", userID);
