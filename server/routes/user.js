@@ -3,12 +3,13 @@ const oAuthController = require("../controllers/oAuthController");
 const express = require('express');
 const router = express.Router();
 const bucketListRouter = require('./bucketList');
-const { validateUser } = require("../controllers/userController");
+const { validateUser, createUser } = require("../controllers/userController");
 
 
-router.post('/oAuth', oAuthController.tokenValidation, userController.validateUser, (req, res) => {
+router.post('/oAuth', oAuthController.tokenValidation, userController.validateUser, userController.createUser, (req, res) => {
   // const users = await userController.createUser(req, res, next);
-  res.status(200);
+  console.log('all good');
+  res.status(200).send('good job');
 });
 
 router.post('/signup', userController.createUser, (req, res) => {
@@ -16,11 +17,11 @@ router.post('/signup', userController.createUser, (req, res) => {
     res.status(200).json({ user: res.locals.user });
 });
 
-router.post('/login', userController.validateUser, (req, res) => {
+router.post('/login', userController.getUser, userController.validateUser, (req, res) => {
   // const users = await userController.createUser(req, res, next);
   res.status(200).json({ user: res.locals.user });
 });
 
- router.use('/bucketlist', bucketListRouter);
+ router.use('/bucketList', bucketListRouter);
 
  module.exports = router;

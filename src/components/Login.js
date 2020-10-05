@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from './Header';
+import styles from './Login.scss';
 
 export function Login({ setIsSignedUp, setUsername }) {
 	const [name, setName] = useState('');
@@ -52,28 +53,24 @@ export function Login({ setIsSignedUp, setUsername }) {
 		// GET EMAIL
 		const email = profile.getEmail();
 		console.log('email: ', email)
-		// Get Token
-		const id_token = googleUser.getAuthResponse().id_token;
-		console.log('token', id_token)
 		// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
+		const id_token = googleUser.getAuthResponse().id_token;
 		fetch('/user/oAuth', {
-			method: 'POST', 
-			body: JSON.stringify({ 
+			method: 'POST',
+			body: JSON.stringify({
 				username: email,
 				password: null,
 				firstname: firstName,
 				imgUrl: imageUrl,
 				oAuth: true,
-				id_token: id_token,
+				id_token: id_token
 			}),
 			headers: {
 				'Content-Type': 'application/json',
 			}
 		})
-			.then(
-				// DO SOMETHING WITH RETURNE DATA
-			)
-	}
+			.then()
+	};
 
 	useEffect (() => {
 		gapi.signin2.render('g-signin2', {
@@ -83,8 +80,8 @@ export function Login({ setIsSignedUp, setUsername }) {
 			'longtitle': false,
 			'theme': 'light',
 			'onsuccess': onSignIn
-		})  
-	})
+		});
+	});
 
 
 	return (
