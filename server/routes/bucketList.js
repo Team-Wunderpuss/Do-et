@@ -10,7 +10,7 @@ router.get('/', bucketListController.getList, (req, res) => {
 });
 
 
-router.post('/additem', bucketListController.addItemToList, bucketListController.getList, (req, res) => {
+router.post('/addItem', bucketListController.addItemToList, bucketListController.getList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
 });
 
@@ -18,7 +18,7 @@ router.delete('/:id', bucketListController.deleteItem, bucketListController.getL
   res.status(200).json({ lists: res.locals.lists });
 })
 
-router.delete('/deleteall/:username', bucketListController.deleteWholeList, (req, res) => {
+router.delete('/deleteAll/:username', bucketListController.deleteWholeList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
 })
 

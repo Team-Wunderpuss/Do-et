@@ -5,7 +5,7 @@ const db = require('../db/db')
 const userController = {};
 
 userController.createUser = (req, res, next) => {
-  // destructure user credentials and check if eith is undefined
+  // destructure user credentials and check if with is undefined
   const { username, password } = req.body;
   console.log('req.body: ', req.body);
   if (!username || !password) next('Username or password is undefined in userController.createUser');
@@ -15,7 +15,7 @@ userController.createUser = (req, res, next) => {
   const saltRounds = 10;
   // encrypt password and send to DB
   bcrypt.hash(password, saltRounds, (err, hash) => {
-    // query string NEED TO PARAMATIZE THE QUERY STRING
+    // query string NEED TO PUT PARAMS IN THE QUERY STRING
     // CHECK ON NAME OF TABLE FROM STORMY
     const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${hash}', 'test', 'dummy')`;
     // send to database UPDATE THE NAME OF THE DB
@@ -31,24 +31,52 @@ userController.validateUser = (req, res, next) => {
   const { username, password, oAuth } = req.body;
   if (!username || !password) next('Username or password not correct') // --> DO WE WANt TO REDIRECT back to sign up if this fails?
   // get username and hash from DB
-  const query = `SELECT "hash" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
-  db.query(query)
-    .then((response) => {
-      if (oAuth && response.rows[0]) next();
-      if (oAuth && !response.rows[0]) {
-        // redirect to createUser
-      }
-      // Compare plain text user input with the hashed password
-      const { hash } = response.rows[0];
-      bcrypt.compare(password, hash, (err, result) => {
-        if (result) next();
-        console.log('found user:', result);
-        return next(err);
-      });
-    })
-    .catch((err) => next(err));
+  if (oAuth) {
+    const query = `SELECT "password" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
+    db.query(query)
+      .then((response) => {
+        if (oAuth && response.rows[0]) next();
+        if (oAuth && !response.rows[0]) {
+          // redirect to createUser
+        }
+        // Compare plain text user input with the hashed password
+        const { hash } = response.rows[0];
+        bcrypt.compare(password, hash, (err, result) => {
+          if (result) next();
+          console.log('found user:', result);
+          return next(err);
+        });
+      })
+      .catch((err) => next(err));
+  } else {
+    const query = `SELECT "password" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
+    db.query(query)
+      .then((response) => {
+        bcrypt.compare(password, response.rows[0].password, (err, result) => {
+          console.log(response.rows[0].password);
+          console.log(password);
+          if (result) next();
+          console.log('found user:', result);
+          return next(err);
+        });
+      })
+      .catch((err) => next(err));
+  }
 };
 
+userController.getUser = (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) next('Username or password not correct') // --> DO WE WANt TO REDIRECT back to sign up if this fails?
 
+  let query = "SELECT * FROM users where users.username=$1"
+  let values = [username];
+  db.query(query, values)
+  .then((response) => {
+    res.locals.username = response.rows[0];
+    console.log('res.locals.username: ', res.locals.username);
+    return next();
+  })
+  .catch((err) => next(err));
+}
 
 module.exports = userController;

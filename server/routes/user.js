@@ -10,11 +10,11 @@ router.post('/signup', userController.createUser, (req, res) => {
     res.status(200).json({ user: res.locals.user });
 });
 
-router.post('/login', userController.validateUser, (req, res) => {
+router.post('/login', userController.getUser, userController.validateUser, (req, res) => {
   // const users = await userController.createUser(req, res, next);
   res.status(200).json({ user: res.locals.user });
 });
 
- router.use('/bucketlist', bucketListRouter);
+ router.use('/bucketList', bucketListRouter);
 
  module.exports = router;
