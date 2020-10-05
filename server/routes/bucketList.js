@@ -5,7 +5,7 @@ const bucketListController = require('../controllers/bucketListController');
 const router = express.Router();
 
 
-router.get('/:username', bucketListController.getList, (req, res) => {
+router.post('/:username', bucketListController.getList, (req, res) => {
     res.status(200).json({ lists: res.locals.lists });
 });
 

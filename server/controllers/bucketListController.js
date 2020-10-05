@@ -6,10 +6,11 @@ const db = require("../db/db");
 const bucketListController = {};
 
 bucketListController.getList = (req, res, next) => {
+  console.log("HERE ARE THE PARAMS: ", req.params);
   try {
     // Add variable for userID and pass into values
     const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-                    FROM places 
+                    FROM places
                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
                     INNER JOIN users ON users.id=uip.fk_user_id
                     WHERE uip.fk_user_id=$1`;
@@ -130,12 +131,12 @@ bucketListController.deleteWholeList = (req, res, next) => {
 };
 
 // bucketListController.addEventToList = (req, res, next) => {
-  
+
 // }
 
 
 // SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-// FROM places 
+// FROM places
 // INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
 // INNER JOIN users ON users.id=uip.fk_user_id
 // WHERE uip.fk_user_id=1;

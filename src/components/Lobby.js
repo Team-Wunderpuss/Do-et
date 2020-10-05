@@ -9,7 +9,17 @@ export function Lobby({ username, setUsername, userID }) {
 
 	//component did mount
 	useEffect(() => {
-		fetch(`/user/bucketList/${username}`)
+		const body = {
+			fk_user_id: userID
+		}
+		console.log("LOBBY: ", userID);
+		fetch(`/user/bucketList/${username}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": 'application/json'
+			},
+			body: JSON.stringify(body)
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				const { err } = data;

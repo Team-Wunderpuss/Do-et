@@ -32,6 +32,7 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 				console.log(data);
 				const { username, id } = data.user;
 				setUserID(id);
+				console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {
