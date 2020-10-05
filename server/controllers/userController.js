@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const db = require('../db/db')
 // REQUIRE DB HERE
 
 const userController = {};
@@ -6,6 +7,7 @@ const userController = {};
 userController.createUser = (req, res, next) => {
   // destructure user credentials and check if eith is undefined
   const { username, password } = req.body;
+  console.log('req.body: ', req.body);
   if (!username || !password) next('Username or password is undefined in userController.createUser');
   //save user in locals for use in middleware chain
   res.locals.user = username;
@@ -28,7 +30,7 @@ userController.validateUser = (req, res, next) => {
   // destructure username and password from body
   const { username, password } = req.body;
   if (!username || !password) next('Username or password not correct') // --> DO WE WANt TO REDIRECT back to sign up if this fails?
-  // get usrname and hash from DB
+  // get username and hash from DB
   const query = `SELECT "hash" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
   db.query(query)
     .then((response) => {
