@@ -9,7 +9,7 @@ const { validateUser, createUser } = require("../controllers/userController");
 router.post('/oAuth', oAuthController.tokenValidation, userController.validateUser, userController.createUser, (req, res) => {
   // const users = await userController.createUser(req, res, next);
   console.log('all good');
-  res.status(200).send('good job');
+  res.sendStatus(200);
 });
 
 router.post('/signup', userController.createUser, (req, res) => {
