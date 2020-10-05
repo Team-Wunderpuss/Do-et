@@ -15,7 +15,7 @@ userController.createUser = (req, res, next) => {
   bcrypt.hash(password, saltRounds, (err, hash) => {
     // query string NEED TO PARAMATIZE THE QUERY STRING
     // CHECK ON NAME OF TABLE FROM STORMY
-    const query = `INSERT INTO "users" ("username", "password", "firstName", "lastName") VALUES ('${username}', '${hash}', 'test', 'dummy')`;
+    const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${hash}', 'test', 'dummy')`;
     // send to database UPDATE THE NAME OF THE DB
     db.query(query)
       .then(() => console.log('User successfully saved in DB'))
@@ -25,7 +25,7 @@ userController.createUser = (req, res, next) => {
 };
 
 userController.validateUser = (req, res, next) => {
-  // destructure username and password from
+  // destructure username and password from body
   const { username, password } = req.body;
   if (!username || !password) next('Username or password not correct') // --> DO WE WANt TO REDIRECT back to sign up if this fails?
   // get username and hash from DB
@@ -42,5 +42,7 @@ userController.validateUser = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
+
+
 
 module.exports = userController;

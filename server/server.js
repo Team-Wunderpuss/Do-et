@@ -9,6 +9,8 @@ const app = express();
 const port = 3000;
 
 const apiRouter = require('./routes/api');
+const userRouter = require('./routes/user');
+
 
 /**
  * handle parsing request body
@@ -27,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // }
 
 app.use('/api', apiRouter);
-
+app.use('/user', userRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.all('*', (req, res) => {
@@ -49,7 +51,5 @@ app.use((err, req, res, next) => {
 });
 
 // API route
-
-app.use("/api", apiRouter);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
