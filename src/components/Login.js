@@ -39,7 +39,6 @@ export function Login({ setIsSignedUp, setUsername }) {
 	};
 
 	const onSignIn = (googleUser) => {
-		console
 		const profile = googleUser.getBasicProfile();
 		// GET FIRST NAME
 		const firstName = profile.getGivenName();
@@ -53,8 +52,11 @@ export function Login({ setIsSignedUp, setUsername }) {
 		// GET EMAIL
 		const email = profile.getEmail();
 		console.log('email: ', email)
+		// Get Token
+		const id_token = googleUser.getAuthResponse().id_token;
+		console.log('token', id_token)
 		// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
-		fetch('/', {
+		fetch('/user/oAuth', {
 			method: 'POST', 
 			body: JSON.stringify({ 
 				username: email,
@@ -62,6 +64,7 @@ export function Login({ setIsSignedUp, setUsername }) {
 				firstname: firstName,
 				imgUrl: imageUrl,
 				oAuth: true,
+				id_token: id_token,
 			}),
 			headers: {
 				'Content-Type': 'application/json',

@@ -6,7 +6,12 @@ const userController = {};
 
 userController.createUser = (req, res, next) => {
   // destructure user credentials and check if eith is undefined
-  const { username, password } = req.body;
+  if (oAuth) {
+    const { username, firstname, lastname } = res.locals;
+    const password = 'password123';
+  } else {
+    const { username, password, firstname, lastname } = req.body;
+  }
   console.log('req.body: ', req.body);
   if (!username || !password) next('Username or password is undefined in userController.createUser');
   //save user in locals for use in middleware chain
@@ -17,7 +22,7 @@ userController.createUser = (req, res, next) => {
   bcrypt.hash(password, saltRounds, (err, hash) => {
     // query string NEED TO PARAMATIZE THE QUERY STRING
     // CHECK ON NAME OF TABLE FROM STORMY
-    const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${hash}', 'test', 'dummy')`;
+    const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${hash}', '${firstname}', '${lastname}')`;
     // send to database UPDATE THE NAME OF THE DB
     db.query(query)
       .then(() => console.log('User successfully saved in DB'))
@@ -34,9 +39,11 @@ userController.validateUser = (req, res, next) => {
   const query = `SELECT "hash" FROM "users" WHERE "username" = '${username}'`; // <--- need to make sure the username and password the same
   db.query(query)
     .then((response) => {
+      // send to get user
       if (oAuth && response.rows[0]) next();
       if (oAuth && !response.rows[0]) {
         // redirect to createUser
+        res.local('/signup');
       }
       // Compare plain text user input with the hashed password
       const { hash } = response.rows[0];
