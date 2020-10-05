@@ -6,15 +6,15 @@ const db = require("../db/db");
 const bucketListController = {};
 
 bucketListController.getList = (req, res, next) => {
-  console.log("HERE ARE THE PARAMS: ", req.params.userID);
   try {
     // Add variable for userID and pass into values
-    const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-                    FROM places
+    const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id, events.event
+                    FROM places 
                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
                     INNER JOIN users ON users.id=uip.fk_user_id
+                    INNER JOIN events ON users.id=events.fk_user_id
                     WHERE uip.fk_user_id=$1`;
-    const values = [req.params.userID];
+    const values = [req.params.fk_user_id];
 
     db.query(query, values)
       .then((response) => {
@@ -130,13 +130,52 @@ bucketListController.deleteWholeList = (req, res, next) => {
   }
 };
 
-// bucketListController.addEventToList = (req, res, next) => {
+bucketListController.addEventToList = (req, res, next) => {
+  const query = `INSERT INTO events(event, fk_user_id, fk_city_id) VALUES('{$1}', $2, $3)`
+  const values = [req.body.event, req.body.fk_user_id, req.body.fk_user_id];
+  try {
+    db.query(query, values)
+      .then(() => { console.log('Event Added') })
+      .then(next());
+  } catch (err) {
+    return next({
+      log: `bucketListController.addEventToList: ERROR ${err}`,
+      message: { err: "you messed up here" },
+    });
+  }
+};
 
-// }
+bucketListController.deleteEventFromList = (req, res, next) => {
+  const query = `DELETE FROM events WHERE events.id=$1`;
+  const values = [req.body.events.id];
+  try {
+    db.query(query, values)
+      .then(() => { console.log('Event Deleted') })
+      .then(next());
+  } catch (err) {
+    return next({
+      log: `bucketListController.deleteEventFromList: ERROR ${err}`,
+      message: { err: "you messed up here" },
+    });
+  }
+};
 
-
+bucketListController.deleteAllEvents = (req, res, next) => {
+  const query =`DELETE FROM events WHERE fk_user_id=$1`;
+  const values = [req.body.fk_user_id];
+  try {
+    db.query(query, values)
+      .then(() => { console.log('All events have been discarded') })
+      .then(next());
+  } catch (err) {
+    return next({
+      log: `bucketListController.deleteAllEvents: ERROR ${err}`,
+      message: { err: "you messed up here" },
+    });
+  }
+};
 // SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-// FROM places
+// FROM places 
 // INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
 // INNER JOIN users ON users.id=uip.fk_user_id
 // WHERE uip.fk_user_id=1;
