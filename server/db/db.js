@@ -15,7 +15,7 @@ module.exports = {
 /*user table
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
-	username VARCHAR NOT NULL UNIQUE,
+	username VARCHAR NOT NULL UNIQUE,r
 	password VARCHAR NOT NULL,
 	firstName VARCHAR,
 	lastName VARCHAR

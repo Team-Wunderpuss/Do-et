@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from './Header';
+import styles from './Login.scss';
 
 export function Login({ setIsSignedUp, setUsername }) {
 	const [name, setName] = useState('');
@@ -38,50 +39,47 @@ export function Login({ setIsSignedUp, setUsername }) {
 		setPassword('');
 	};
 
-	const onSignIn = (googleUser) => {
-		console
-		const profile = googleUser.getBasicProfile();
-		// GET FIRST NAME
-		const firstName = profile.getGivenName();
-		console.log('firstName: ', firstName)
-		// GET LAST NAME
-		const lastName = profile.getFamilyName();
-		console.log('lastName: ', lastName)
-		// GET IMAGE URL
-		const imageUrl = profile.getImageUrl();
-		console.log('imageURL: ', imageUrl)
-		// GET EMAIL
-		const email = profile.getEmail();
-		console.log('email: ', email)
-		// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
-		fetch('/', {
-			method: 'POST', 
-			body: JSON.stringify({ 
-				username: email,
-				password: null,
-				firstname: firstName,
-				imgUrl: imageUrl,
-				oAuth: true,
-			}),
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		})
-			.then(
-				// DO SOMETHING WITH RETURNE DATA
-			)
-	}
+	// const onSignIn = (googleUser) => {
+	// 	const profile = googleUser.getBasicProfile();
+	// 	// GET FIRST NAME
+	// 	const firstName = profile.getGivenName();
+	// 	console.log('firstName: ', firstName)
+	// 	// GET LAST NAME
+	// 	const lastName = profile.getFamilyName();
+	// 	console.log('lastName: ', lastName)
+	// 	// GET IMAGE URL
+	// 	const imageUrl = profile.getImageUrl();
+	// 	console.log('imageURL: ', imageUrl)
+	// 	// GET EMAIL
+	// 	const email = profile.getEmail();
+	// 	console.log('email: ', email)
+	// 	// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
+	// 	fetch('/user/login', {
+	// 		method: 'POST',
+	// 		body: JSON.stringify({
+	// 			username: email,
+	// 			password: null,
+	// 			firstname: firstName,
+	// 			imgUrl: imageUrl,
+	// 			oAuth: true,
+	// 		}),
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 		}
+	// 	})
+	// 		.then()
+	// };
 
-	useEffect (() => {
-		gapi.signin2.render('g-signin2', {
-			// 'scope': 'https://www.googleapis.com/auth/plus.login',
-			'width': 200,
-			'height': 50,
-			'longtitle': false,
-			'theme': 'light',
-			'onsuccess': onSignIn
-		})  
-	})
+	// useEffect (() => {
+	// 	gapi.signin2.render('g-signin2', {
+	// 		// 'scope': 'https://www.googleapis.com/auth/plus.login',
+	// 		'width': 200,
+	// 		'height': 50,
+	// 		'longtitle': false,
+	// 		'theme': 'light',
+	// 		'onsuccess': onSignIn
+	// 	});
+	// });
 
 
 	return (
@@ -109,7 +107,7 @@ export function Login({ setIsSignedUp, setUsername }) {
 					<button id='login-btn' onClick={handleLogin}>
 						Login
 					</button>
-					<div id="g-signin2"></div>
+					{/* <div id="g-signin2"></div> */}
 				</div>
 			</div>
 		</div>
