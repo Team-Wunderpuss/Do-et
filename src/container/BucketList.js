@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Entry } from './Entry';
+import { Entry } from './Entry';
 //Entries are the diary post, may need later
 
 export function BucketList({ entries, handleDelete }) {

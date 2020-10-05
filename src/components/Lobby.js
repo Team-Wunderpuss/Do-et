@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BucketList } from '../container/BucketList';
 import { Header } from './Header';
 
-export function Lobby({ username, setUsername }) {
+export function Lobby({ username, setUsername, userID }) {
 	//check states
 	const [entry, setEntry] = useState('');
 	const [entries, setEntries] = useState([]);
@@ -26,7 +26,7 @@ export function Lobby({ username, setUsername }) {
 		setEntry(e.target.value);
 	};
 	const handleAddItem = () => {
-		const data = { username, content: entry };
+		const data = { username, userID, content: entry };
 		//check
 		fetch('http://localhost:3000/user/bucketList/add', {
 			method: 'POST',
