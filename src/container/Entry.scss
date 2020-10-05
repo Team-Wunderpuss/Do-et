@@ -12,3 +12,40 @@ $medium-turquoise: #3dccc7;
 $blizzard-blue: #9ceaef;
 $celeste: #c4fff9;
 
+.entry {
+  display: flex;
+  flex-direction: column;
+  // background-color: $;
+  // border: 2px solid $;
+  border-radius: 5px;
+  width: 90%;
+
+  p {
+    align-self: flex-end;
+    // margin-right: 80px;
+    // margin-top: 15px;
+  }
+
+  .place-entry {
+    margin: 0 30px 15px 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  #get-weather {
+    height: 25px;
+		width: 60px;
+		// background-color: $;
+		// color: $;
+		// border: 2px solid $;
+  }
+  #delete-btn {
+    height: 25px;
+		width: 25px;
+		// background-color: $;
+		// color: $;
+		// border: 2px solid $;
+  }
+
+}

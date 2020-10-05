@@ -32,7 +32,7 @@ export function Lobby({ username, setUsername, userID }) {
 	const handleAddItem = () => {
 		const data = { username, userID, content: entry };
 		//check
-		fetch('http://localhost:3000/user/bucketList/add', {
+		fetch(`http://localhost:3000/user/bucketList/${userID}/add`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -50,14 +50,14 @@ export function Lobby({ username, setUsername, userID }) {
 	};
 
 	const handleDelete = (id) => {
-		fetch(`http://localhost:3000/user/bucketList/${id}`, {
+		fetch(`http://localhost:3000/user/bucketList/${userID}/${id}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('Success:', data);
 				const newEntries = entries.filter((entry) => {
-					return entry._id !== data._id;
+					return entry.id !== data._id;
 				});
 				setEntries(newEntries);
 			})

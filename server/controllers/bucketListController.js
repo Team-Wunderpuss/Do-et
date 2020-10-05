@@ -4,18 +4,21 @@ const path = require("path");
 const db = require("../db/db");
 
 const bucketListController = {};
-
+// SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id, events.event
+//                     FROM places
+//                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
+//                     INNER JOIN users ON users.id=uip.fk_user_id
+//                     INNER JOIN events ON users.id=events.fk_user_id
+//                     WHERE uip.fk_user_id=$1
 bucketListController.getList = (req, res, next) => {
   try {
     // Add variable for userID and pass into values
-    const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id, events.event
-                    FROM places 
+    const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
+                    FROM places
                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
                     INNER JOIN users ON users.id=uip.fk_user_id
-                    INNER JOIN events ON users.id=events.fk_user_id
                     WHERE uip.fk_user_id=$1`;
     const values = [req.params.fk_user_id];
-
     db.query(query, values)
       .then((response) => {
         res.locals.lists = response.rows;
@@ -116,7 +119,7 @@ bucketListController.deleteWholeUIP = (req, res, next) => {
 };
 
 bucketListController.deleteWholeList = (req, res, next) => {
-  const query = `DELETE FROM places WHERE fk_user_id=$1`;
+  const query = `DELETE FROM users_in_places WHERE fk_user_id=$1`;
   const values = [req.body.fk_user_id];
   try {
     db.query(query, values)
@@ -175,7 +178,7 @@ bucketListController.deleteAllEvents = (req, res, next) => {
   }
 };
 // SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-// FROM places 
+// FROM places
 // INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
 // INNER JOIN users ON users.id=uip.fk_user_id
 // WHERE uip.fk_user_id=1;

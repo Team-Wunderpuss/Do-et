@@ -8,8 +8,8 @@ export function BucketList({ entries, handleDelete }) {
 		return (
 			<Entry
 				// date={entry.date}
-				content={`${entry.city}, ${entry.state}, ${entry.country}, ${entry.zipCode}`}
-				id={entry._id}
+				content={entry}
+				id={entry.id}
 				key={idx}
 				handleDelete={handleDelete}
 			/>

@@ -9,19 +9,25 @@ export function Entry({ date, content, id, handleDelete }) {
 	function handleWeather(city) {
 		fetch(`/api/${city}`)
 			.then(response => response.json())
-			.then(data => console.log(data))
+			.then(data => {
+				setHandleWeather(data);
+			})
+			.catch(err => console.log(err))
 	}
 
 	return (
 		<div className='entry'>
 			<p>{newDate}</p>
 			<div className='entry-item'>
-				<div className="place-entry">{content}</div>
-				{/* {
-					weather.city &&
-					<div>{weather data}</div>
-				} */}
-				<button id='get-weather' onClick={() => handleWeather(city)} > </button>
+				<div className="place-entry">{`${content.city}, ${content.state}, ${content.country}, ${content.zipCode}`}</div>
+				{
+					weather.description &&
+					<div>{`${weather.description}, ${weather.temp}, ${weather.feelsLike}, ${weather.windSpeed}`}</div>
+				}
+				{
+					!weather.description &&
+					<button id='get-weather' onClick={() => handleWeather(content.city)} >Get Current Weather</button>
+				}
 				<button id='delete-btn' onClick={() => handleDelete(id)}>
 					X
 				</button>

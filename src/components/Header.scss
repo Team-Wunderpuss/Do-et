@@ -17,5 +17,41 @@ $celeste: #c4fff9;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: $sapphire
+  background-color: $light-green;
+  color: $warm-black;
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+
+      #home-btn {
+      color: $warm-black;
+      background-color: 2px solid $light-green;
+
+        &:hover {
+          color: $light-green;
+          background-color: $warm-black;
+      }
+  }
+
+    #sidebar {
+      color: $warm-black;
+      background-color: 2px solid $light-green;
+
+        &:hover {
+          color: $light-green;
+          background-color: $warm-black;
+    }
+  }
+
+    #logout-btn {
+      color: $warm-black;
+      background-color: 2px solid $light-green;
+
+        &:hover {
+          color: $light-green;
+          background-color: $warm-black;
+        }
+    }
+  }
 }

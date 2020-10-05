@@ -14,11 +14,11 @@ router.post('/additem', bucketListController.addItemToPlaces, bucketListControll
   res.status(200).json({ lists: res.locals.lists });
 });
 
-router.delete('/:id', bucketListController.deleteItemFromUIP, bucketListController.deleteItemFromPlaces, bucketListController.getList, (req, res) => {
+router.delete('/:fk_user_id/:fk_city_id', bucketListController.deleteItemFromUIP, bucketListController.deleteItemFromPlaces, bucketListController.getList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
 });
 
-router.delete('/deleteall/:username', bucketListController.deleteWholeUIP, bucketListController.deleteWholeList, (req, res) => {
+router.delete('/deleteall/:fk_user_id', bucketListController.deleteWholeUIP, bucketListController.deleteWholeList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
 });
 
