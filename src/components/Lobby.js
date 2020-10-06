@@ -8,7 +8,6 @@ export function Lobby({ username, setUsername, userID }) {
 	const [city, setCity] = useState('');
 	const [state, setState] = useState('');
 	const [country, setCountry] = useState('');
-	// const [zipCode, setZipCode] = useState('');
 
 	const [entries, setEntries] = useState([]);
 	//component did mount
@@ -20,11 +19,9 @@ export function Lobby({ username, setUsername, userID }) {
 				const { err } = data;
 				if (err) return;
 				console.log(data);
-				// const entries = [];
 				for (const entry in data) {
 					console.log(entry);
 					console.log(data[entry]);
-					// entries.unshift(data[entry]);
 					setEntries(data[entry]);
 				}
 			});
@@ -39,12 +36,9 @@ export function Lobby({ username, setUsername, userID }) {
 	const handleCountryEntry = (e) => {
 		setCountry(e.target.value);
 	};
-	// const handleZipCodeEntry = (e) => {
-	// 	setZipCode(e.target.value);
-	// };
+
 	const handleAddItem = () => {
 		const data = { username, city, state, country };
-		//check
 		fetch(`/user/bucketList/${userID}/add`, {
 			method: 'POST',
 			headers: {
@@ -63,7 +57,6 @@ export function Lobby({ username, setUsername, userID }) {
 		setCity('');
 		setState('');
 		setCountry('');
-		// setZipCode('');
 	};
 
 	const handleDelete = (id) => {
@@ -73,9 +66,6 @@ export function Lobby({ username, setUsername, userID }) {
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('Success:', data);
-				// const newEntries = entries.filter((entry) => {
-				// 	return entry._id !== data._id;
-				// });
 				if (!data.lists) {
 					return setEntries([])
 				};
@@ -133,12 +123,6 @@ export function Lobby({ username, setUsername, userID }) {
 					onChange={handleCountryEntry}
 					onKeyDown={handleKeyDown}
 				/>
-				{/* <input
-					type='text'
-					value={zipCode}
-					onChange={handleZipCodeEntry}
-					onKeyDown={handleKeyDown}
-				/> */}
 				<button id='share-btn' onClick={handleAddItem}>
 					share
 				</button>
