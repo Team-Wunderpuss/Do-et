@@ -19,7 +19,7 @@ export function Header({ username, handleLogout }) {
 			<h1>DO-ET</h1>
 			{
 				username.length > 1 &&
-				<h6>{username}'s Do-Et List!</h6>
+				<h4>{username}'s Do-Et List!</h4>
 			}
 			<div className='buttons'>
 			<button id='home-btn' onClick={handleHome} >

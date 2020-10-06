@@ -3,7 +3,7 @@ import './Entry.scss';
 
 
 export function Entry({ date, content, id, handleDelete }) {
-	const newDate = new Date(date).toDateString();
+	// const newDate = new Date(date).toDateString();
 	const [weather, setHandleWeather] = useState({});
 
 	function handleWeather(city) {
@@ -16,21 +16,23 @@ export function Entry({ date, content, id, handleDelete }) {
 	}
 
 	return (
-		<div className='entry'>
-			<p>{newDate}</p>
+		<div className='entry' id={id}>
+			{/* <p>{newDate}</p> */}
 			<div className='entry-item'>
-				<div className="place-entry">{`${content.city}, ${content.state}, ${content.country}, ${content.zipCode}`}</div>
+				<div className="place-entry">{`${content.city}, ${content.state}, ${content.country}`}</div>
 				{
 					weather.description &&
-					<div>{`${weather.description}, ${weather.temp}, ${weather.feelsLike}, ${weather.windSpeed}`}</div>
+					<div>{`Weather: ${weather.description}, Temperature(F): ${weather.temp}, Feels Like: ${weather.feelsLike}, Wind Speed: ${weather.windSpeed}`}</div>
 				}
+				<div className='buttons'>
 				{
 					!weather.description &&
-					<button id='get-weather' onClick={() => handleWeather(content.city)} >Get Current Weather</button>
+					<button id='get-weather' onClick={() => handleWeather(content.city)} >Weather</button>
 				}
 				<button id='delete-btn' onClick={() => handleDelete(id)}>
 					X
 				</button>
+				</div>
 			</div>
 		</div>
 	);

@@ -5,7 +5,11 @@ import './Lobby.scss';
 
 export function Lobby({ username, setUsername, userID }) {
 	//check states
-	const [entry, setEntry] = useState('');
+	const [city, setCity] = useState('');
+	const [state, setState] = useState('');
+	const [country, setCountry] = useState('');
+	// const [zipCode, setZipCode] = useState('');
+
 	const [entries, setEntries] = useState([]);
 	//component did mount
 	useEffect(() => {
@@ -26,13 +30,22 @@ export function Lobby({ username, setUsername, userID }) {
 			});
 	}, []);
 
-	const handleBucketListEntry = (e) => {
-		setEntry(e.target.value);
+	const handleCityEntry = (e) => {
+		setCity(e.target.value);
 	};
+	const handleStateEntry = (e) => {
+		setState(e.target.value);
+	};
+	const handleCountryEntry = (e) => {
+		setCountry(e.target.value);
+	};
+	// const handleZipCodeEntry = (e) => {
+	// 	setZipCode(e.target.value);
+	// };
 	const handleAddItem = () => {
-		const data = { username, userID, content: entry };
+		const data = { username, city, state, country };
 		//check
-		fetch(`http://localhost:3000/user/bucketList/${userID}/add`, {
+		fetch(`/user/bucketList/${userID}/add`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -41,32 +54,39 @@ export function Lobby({ username, setUsername, userID }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setEntries([data, ...entries]);
+				console.log("I ADDED WHATS MY DATA: ", data);
+				setEntries(data.lists);
 			})
 			.catch((error) => {
 				console.error('Error:', error);
 			});
-		setEntry('');
+		setCity('');
+		setState('');
+		setCountry('');
+		// setZipCode('');
 	};
 
 	const handleDelete = (id) => {
-		fetch(`http://localhost:3000/user/bucketList/${userID}/${id}`, {
+		fetch(`/user/bucketList/${id}/${userID}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('Success:', data);
-				const newEntries = entries.filter((entry) => {
-					return entry.id !== data._id;
-				});
-				setEntries(newEntries);
+				// const newEntries = entries.filter((entry) => {
+				// 	return entry._id !== data._id;
+				// });
+				if (!data.lists) {
+					return setEntries([])
+				};
+				setEntries(data.lists);
 			})
 			.catch((error) => {
 				console.log('Error:', error);
 			});
 	};
 	const handleDeleteAll = () => {
-		fetch(`http://localhost:3000/user/bucketList/deleteAll/${userID}`, {
+		fetch(`/user/bucketList/deleteAll/${userID}`, {
 			method: 'DELETE',
 		})
 			.then((response) => response.json())
@@ -90,16 +110,35 @@ export function Lobby({ username, setUsername, userID }) {
 		setEntries([]);
 	};
 
+
 	return (
 		<div className='bucket-list-container'>
 			<Header username={username} handleLogout={handleLogout} />
 			<div className='bucket-list-entry'>
 				<input
 					type='text'
-					value={entry}
-					onChange={handleBucketListEntry}
+					value={city}
+					onChange={handleCityEntry}
 					onKeyDown={handleKeyDown}
 				/>
+				<input
+					type='text'
+					value={state}
+					onChange={handleStateEntry}
+					onKeyDown={handleKeyDown}
+				/>
+				<input
+					type='text'
+					value={country}
+					onChange={handleCountryEntry}
+					onKeyDown={handleKeyDown}
+				/>
+				{/* <input
+					type='text'
+					value={zipCode}
+					onChange={handleZipCodeEntry}
+					onKeyDown={handleKeyDown}
+				/> */}
 				<button id='share-btn' onClick={handleAddItem}>
 					share
 				</button>

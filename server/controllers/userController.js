@@ -21,7 +21,7 @@ userController.createUser = (req, res, next) => {
       .catch((err) => next(err));
   } else {
     const { username, password, firstname, lastname } = req.body;
-    console.log('req.body: ', req.body);
+    // console.log('req.body: ', req.body);
     if (!username || !password) next('Username or password is undefined in userController.createUser');
     //save user in locals for use in middleware chain
     res.locals.user = username;
@@ -51,7 +51,7 @@ userController.validateUser = (req, res, next) => {
         if (response.rows[0]) {
           res.locals.user = response.rows[0];
           res.locals.existingUser = true;
-          console.log('in vlidate moving to next', response.rows[0]);
+          // console.log('in vlidate moving to next', response.rows[0]);
           return next();
         };
         // redirect to createUser
@@ -92,7 +92,7 @@ userController.getUser = (req, res, next) => {
   db.query(query, values)
   .then((response) => {
     res.locals.user = response.rows[0];
-    console.log('res.locals.user: ', res.locals.user);
+    // console.log('res.locals.user: ', res.locals.user);
     return next();
   })
   .catch((err) => next(err));

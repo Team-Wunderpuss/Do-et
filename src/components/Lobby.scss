@@ -31,15 +31,17 @@ $celeste: #c4fff9;
 		border-radius: 10px;
 
 		input {
-			width: 90%;
+			width: 70%;
 			height: 2rem;
 			border: 2px solid $warm-black;
+			margin: 0 2px;
 		}
 	}
 
 	#share-btn {
 		height: 30px;
 		width: 50px;
+		border-radius: 5px;
 
 		margin-left: 10px;
 		background-color: $celeste;
@@ -53,20 +55,22 @@ $celeste: #c4fff9;
 
 	.delete-button-container {
 		width: 90%;
+		border-radius: 5px;
 
 		#delete-all-btn {
 			height: 30px;
 			width: 70px;
 			margin-bottom: 10px;
-			// margin: 0 70rem 10px 0;
+			margin: 0 70rem 10px 0;
 
-			// background-color: $linen;
-			// color: $desert-sand;
-			// border: 2px solid $desert-sand;
+			color: $prussian-blue;
+			background-color: $tea-green;
+			border: 2px solid $prussian-blue;
 		}
 		#delete-all-btn:hover {
-			// color: $linen;
-			// background-color: $desert-sand;
+			color: $tea-green;
+			background-color: $medium-aqua;
+			border: 2px solid $tea-green;
 		}
 	}
 }

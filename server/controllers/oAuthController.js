@@ -15,7 +15,7 @@ oAuthController.tokenValidation = (req, res, next) => {
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
     const payload = ticket.getPayload();
-    console.log("this is your gapi payload ", payload);
+    // console.log("this is your gapi payload ", payload);
     const userid = payload['sub'];
     // If request specified a G Suite domain:
     // const domain = payload['hd'];

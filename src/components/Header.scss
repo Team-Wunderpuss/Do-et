@@ -17,40 +17,58 @@ $celeste: #c4fff9;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  position: fixed;
+  min-height: 15vh;
+  top: 0;
+  width: 100%;
+  border: 2px solid $steel-blue;
   background-color: $light-green;
   color: $warm-black;
 
   .buttons{
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
-      #home-btn {
+
+    #home-btn {
       color: $warm-black;
-      border-collapse: 2px solid $light-green;
+      border: 2px solid $warm-black;
+      background-color: $light-green;
+      margin: 5px;
+
+      padding: 5px;
 
         &:hover {
           color: $light-green;
           background-color: $warm-black;
       }
-  }
+    }
 
     #sidebar {
       color: $warm-black;
-      border: 2px solid $light-green;
+      border: 2px solid $warm-black;
+      background-color: $light-green;
+      margin: 5px;
+      padding: 5px;
 
         &:hover {
           color: $light-green;
           background-color: $warm-black;
+        }
     }
-  }
 
     #logout-btn {
       color: $warm-black;
-      background-color: 2px solid $light-green;
+      border: 2px solid $warm-black;
+      background-color: $light-green;
+      margin: 5px;
+      padding: 5px;
 
         &:hover {
           color: $light-green;
-          border: $warm-black;
+          background-color: $warm-black;
         }
     }
   }

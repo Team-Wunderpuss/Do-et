@@ -29,10 +29,10 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				const { username, id } = data.user;
 				setUserID(id);
-				console.log("LOGIN: ", id);
+				// console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {
@@ -43,28 +43,28 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 	};
 
 	const onSignIn = (googleUser) => {
-		const profile = googleUser.getBasicProfile();
-		// GET FIRST NAME
-		const firstName = profile.getGivenName();
-		console.log('firstName: ', firstName)
-		// GET LAST NAME
-		const lastName = profile.getFamilyName();
-		console.log('lastName: ', lastName)
-		// GET IMAGE URL
-		const imageUrl = profile.getImageUrl();
-		console.log('imageURL: ', imageUrl)
-		// GET EMAIL
-		const email = profile.getEmail();
-		console.log('email: ', email)
+		// const profile = googleUser.getBasicProfile();
+		// // GET FIRST NAME
+		// const firstName = profile.getGivenName();
+		// console.log('firstName: ', firstName)
+		// // GET LAST NAME
+		// const lastName = profile.getFamilyName();
+		// console.log('lastName: ', lastName)
+		// // GET IMAGE URL
+		// const imageUrl = profile.getImageUrl();
+		// console.log('imageURL: ', imageUrl)
+		// // GET EMAIL
+		// const email = profile.getEmail();
+		// console.log('email: ', email)
 		// add logic if they create a user with Oauth, don't allow them to sign in with a user/password.
 		const id_token = googleUser.getAuthResponse().id_token;
 		fetch('/user/oAuth', {
 			method: 'POST',
 			body: JSON.stringify({
-				username: email,
-				password: null,
-				firstname: firstName,
-				imgUrl: imageUrl,
+				// username: email,
+				// password: null,
+				// firstname: firstName,
+				// imgUrl: imageUrl,
 				oAuth: true,
 				id_token: id_token
 			}),
@@ -74,10 +74,10 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				const { username, id } = data.user;
 				setUserID(id);
-				console.log("LOGIN: ", id);
+				// console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {
