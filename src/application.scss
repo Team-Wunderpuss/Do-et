@@ -21,6 +21,14 @@ button:hover {
 	cursor: pointer;
 }
 
+html,
+body,
+#root,
+.app,
+.app > div {
+	height: 100%;
+}
+
 body {
 	background-color: $tea-green;
 }

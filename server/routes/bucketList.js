@@ -8,10 +8,7 @@ router.get('/:fk_user_id', bucketListController.getList, (req, res) => {
   res.status(200).json({ lists: res.locals.lists });
 });
 
-router.post('/additem',
-  bucketListController.addItemToPlaces,
-  bucketListController.placesIntoUIP,
-  bucketListController.getList,
+router.post('/:fk_user_id/add', bucketListController.addItemToPlaces, bucketListController.placesIntoUIP, bucketListController.getList,
   (req, res) => {
     res.status(200).json({ lists: res.locals.lists });
   });

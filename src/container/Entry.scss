@@ -12,3 +12,55 @@ $medium-turquoise: #3dccc7;
 $blizzard-blue: #9ceaef;
 $celeste: #c4fff9;
 
+.entry {
+  display: flex;
+  flex-direction: column;
+  // background-color: $;
+  border: 2px solid $mountain-meadow;
+  border-radius: 5px;
+  width: 90%;
+  margin-bottom: 5px;
+
+  // p {
+  //   align-self: flex-end;
+  //   margin-right: 80px;
+  //   margin-top: 15px;
+  // }
+
+  .place-entry {
+    margin: 0 30px 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    min-width: 90%;
+    min-height: 75px;
+
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+
+
+  #get-weather {
+    // height: 25px;
+		// width: 60px;
+		background-color: $light-green;
+		color: $sapphire;
+    border: 2px solid $sapphire;
+    padding: 5px;
+    margin-left: 20px;
+  }
+
+  #delete-btn {
+    height: 25px;
+		width: 25px;
+    background-color: $light-green;
+		color: $mountain-meadow;
+		border: 2px solid $mountain-meadow;
+  }
+  }
+}

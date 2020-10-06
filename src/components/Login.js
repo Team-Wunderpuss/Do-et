@@ -29,10 +29,10 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				const { username, id } = data.user;
 				setUserID(id);
-				console.log("LOGIN: ", id);
+				// console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {
@@ -74,10 +74,10 @@ export function Login({ setIsSignedUp, setUsername, setUserID }) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				const { username, id } = data.user;
 				setUserID(id);
-				console.log("LOGIN: ", id);
+				// console.log("LOGIN: ", id);
 				setUsername(username);
 			})
 			.catch((error) => {

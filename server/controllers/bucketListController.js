@@ -4,19 +4,24 @@ const path = require("path");
 const db = require("../db/db");
 
 const bucketListController = {};
-
+// SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id, events.event
+//                     FROM places
+//                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
+//                     INNER JOIN users ON users.id=uip.fk_user_id
+//                     INNER JOIN events ON users.id=events.fk_user_id
+//                     WHERE uip.fk_user_id=$1
 bucketListController.getList = (req, res, next) => {
   try {
     // Add variable for userID and pass into values
     const query = `SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-                    FROM places 
+                    FROM places
                     INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
                     INNER JOIN users ON users.id=uip.fk_user_id
                     WHERE uip.fk_user_id=$1`;
     const values = [req.params.fk_user_id];
-
     db.query(query, values)
       .then((response) => {
+        // console.log(response);
         res.locals.lists = response.rows;
         console.log('here is your list: ', res.locals.lists);
         return next();
@@ -31,17 +36,23 @@ bucketListController.getList = (req, res, next) => {
 
 bucketListController.addItemToPlaces = (req, res, next) => {
   try {
+    console.log("MY BOD: ", req.body);
     // NEED TO ADD QUERY STRING
-    // potentailly change events table to link directly to users table via foreign key
+    // potentially change events table to link directly to users table via foreign key
     // const query = `INSERT INTO "users" ("username", "password", "firstname", "lastname") VALUES ('${username}', '${hash}', 'test', 'dummy')`; // chang ethe values
     // 1. grab the user id for current user
     // 2. grab the place id for the input locations
     // 3. add to user in places with user id and city id, each as a fk
-    const query = `INSERT INTO places(city, state, country, zipcode) VALUES($1, $2, $3 $4)`;
-    const values = [req.body.city, req.body.state, req.body.country, req.body.zipcode];
+    const query = `INSERT INTO places(city, state, country) VALUES($1, $2, $3) RETURNING id`;
+
+    const values = [req.body.city, req.body.state, req.body.country];
     db.query(query, values)
-      .then(() => { console.log('Location added') })
-      .then(next());
+      .then((data) => {
+        console.log('ADDED ITEM');
+        console.log(data.rows[0].id);
+        res.locals.places_id = data.rows[0].id;
+        return next();
+      })
   } catch (err) {
     return next({
       log: `bucketListController.addItemToPlaces: ERROR ${err}`,
@@ -52,8 +63,9 @@ bucketListController.addItemToPlaces = (req, res, next) => {
 
 bucketListController.placesIntoUIP = (req, res, next) => {
   try {
-    const query = `INSERT INTO users_in_places(fk_user_id, fk_city_id) VALUES ($1, $2)`;
-    const values = [req.body.fk_user_id, req.body.fk_city_id];
+    const query = `INSERT INTO users_in_places(fk_city_id, fk_user_id) VALUES ($1, $2)`;
+    const values = [res.locals.places_id, req.params.fk_user_id];
+    console.log('THE PLACE ID THAT WAS SAVED: ', res.locals.places_id);
     db.query(query, values)
       .then(() => { console.log('Users in places updated') })
       .then(next());
@@ -116,7 +128,7 @@ bucketListController.deleteWholeUIP = (req, res, next) => {
 };
 
 bucketListController.deleteWholeList = (req, res, next) => {
-  const query = `DELETE FROM places WHERE fk_user_id=$1`;
+  const query = `DELETE FROM users_in_places WHERE fk_user_id=$1`;
   const values = [req.body.fk_user_id];
   try {
     db.query(query, values)
@@ -175,7 +187,7 @@ bucketListController.deleteAllEvents = (req, res, next) => {
   }
 };
 // SELECT places.*, uip.fk_user_id AS user_id, uip.fk_city_id AS place_id
-// FROM places 
+// FROM places
 // INNER JOIN users_in_places uip ON places.id=uip.fk_city_id
 // INNER JOIN users ON users.id=uip.fk_user_id
 // WHERE uip.fk_user_id=1;

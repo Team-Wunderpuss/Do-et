@@ -5,12 +5,10 @@ import './BucketList.scss';
 
 export function BucketList({ entries, handleDelete }) {
 	const entriesJSX = entries.map((entry, idx) => {
-		console.log('in entry and idx is: ', idx)
-		console.log('thi is ', entries[idx].id)
 		return (
 			<Entry
 				// date={entry.date}
-				content={`${entry.city}, ${entry.state}, ${entry.country}, ${entry.zipCode}`}
+				content={entry}
 				id={entry.id}
 				key={idx}
 				handleDelete={handleDelete}

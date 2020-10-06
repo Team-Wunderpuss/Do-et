@@ -1,5 +1,5 @@
 import React from 'react';
-// import './Header.scss';
+import './Header.scss';
 import App from '../App'
 export function Header({ username, handleLogout }) {
 
@@ -21,6 +21,7 @@ export function Header({ username, handleLogout }) {
 				username.length > 1 &&
 				<h4>{username}'s Do-Et List!</h4>
 			}
+			<div className='buttons'>
 			<button id='home-btn' onClick={handleHome} >
 				Home
 			</button>
@@ -33,6 +34,7 @@ export function Header({ username, handleLogout }) {
 					Logout
 				</button>
 			}
+			</div>
 		</div>
 	);
 }

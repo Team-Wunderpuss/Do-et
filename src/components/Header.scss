@@ -17,5 +17,59 @@ $celeste: #c4fff9;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: $sapphire
+
+  position: fixed;
+  min-height: 15vh;
+  top: 0;
+  width: 100%;
+  border: 2px solid $steel-blue;
+  background-color: $light-green;
+  color: $warm-black;
+
+  .buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    #home-btn {
+      color: $warm-black;
+      border: 2px solid $warm-black;
+      background-color: $light-green;
+      margin: 5px;
+
+      padding: 5px;
+
+        &:hover {
+          color: $light-green;
+          background-color: $warm-black;
+      }
+    }
+
+    #sidebar {
+      color: $warm-black;
+      border: 2px solid $warm-black;
+      background-color: $light-green;
+      margin: 5px;
+      padding: 5px;
+
+        &:hover {
+          color: $light-green;
+          background-color: $warm-black;
+        }
+    }
+
+    #logout-btn {
+      color: $warm-black;
+      border: 2px solid $warm-black;
+      background-color: $light-green;
+      margin: 5px;
+      padding: 5px;
+
+        &:hover {
+          color: $light-green;
+          background-color: $warm-black;
+        }
+    }
+  }
 }
